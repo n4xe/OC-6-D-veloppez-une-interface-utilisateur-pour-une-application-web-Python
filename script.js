@@ -71,31 +71,62 @@ document.addEventListener("DOMContentLoaded", function () {
     createCarousel("http://127.0.0.1:8000/api/v1/titles/?sort_by=-imdb_score&page_size=7&genre=horror", "container3", "l3", "r3");
     createCarousel("http://127.0.0.1:8000/api/v1/titles/?sort_by=-imdb_score&page_size=7&genre=family", "container4", "l4", "r4");
 
-    $.ajax({
-        url: "http://127.0.0.1:8000/api/v1/titles/?sort_by=-imdb_score&limit=1",
-        method: "GET",
-        dataType: "json",
-        success: function(data) {
-            var bestMovie = data.results[0]; // Récupérer le meilleur film
+    // Fonction pour récupérer les données du meilleur film
+    function getBestMovie() {
+        $.ajax({
+            url: "http://127.0.0.1:8000/api/v1/titles/?sort_by=-imdb_score&limit=1",
+            method: "GET",
+            dataType: "json",
+            success: function(data) {
+                var bestMovie = data.results[0]; // Récupérer le meilleur film
 
-            if (bestMovie) {
-                var bestMovieTitle = bestMovie.title; // Récupérer le titre du meilleur film
-                var bestMovieImage = bestMovie.image_url; // Récupérer l'URL de l'image (poster)
+                if (bestMovie) {
+                    var bestMovieTitle = bestMovie.title; // Récupérer le titre du meilleur film
+                    var bestMovieImage = bestMovie.image_url; // Récupérer l'URL de l'image (poster)
+                    var apiUrl = bestMovie.url; // Récupérer l'URL spécifique du film
 
-                // Mettre à jour les éléments HTML avec les données du meilleur film
-                $("#best-movie-title").text(bestMovieTitle);
-                $("#best-movie-poster").attr("src", bestMovieImage);
+                    // Mettre à jour les éléments HTML avec les données du meilleur film
+                    $("#best-movie-title").text(bestMovieTitle);
+                    $("#best-movie-poster").attr("src", bestMovieImage);
 
-            } else {
-                console.log("Aucun film trouvé.");
+                    // Appeler la fonction pour obtenir la longue description du meilleur film en utilisant l'URL spécifique
+                    getLongDescription(apiUrl);
+                } else {
+                    console.log("Aucun film trouvé.");
+                }
+            },
+            error: function(error) {
+                console.error("Erreur lors de la récupération des données de l'API.", error);
             }
-        },
-        error: function(error) {
-            console.error("Erreur lors de la récupération des données de l'API.", error);
-        }
-    });
+        });
+    }
 
-    // Function to open the modal with film information
+    // Fonction pour récupérer la longue description du film
+    function getLongDescription(apiUrl) {
+        $.ajax({
+            url: apiUrl,
+            method: "GET",
+            dataType: "json",
+            success: function(data) {
+                var longDescription = data.long_description; // Récupérer la longue description du film
+
+                if (longDescription) {
+                    // Mettre à jour la balise "best-movie-summary" avec la longue description
+                    $("#best-movie-summary").text(longDescription);
+                } else {
+                    console.log("Aucune description trouvée.");
+                }
+            },
+            error: function(error) {
+                console.error("Erreur lors de la récupération de la longue description du film.", error);
+            }
+        });
+    }
+
+    // Appeler la fonction pour obtenir les données du meilleur film
+    getBestMovie();
+
+    // Fonction qui ouvre la fenetre modale avec les informations des films
     function openModal(movie) {
         const modal = document.getElementById("movie-modal");
         const modalTitle = document.getElementById("modal-title");
@@ -126,13 +157,12 @@ document.addEventListener("DOMContentLoaded", function () {
             .catch(error => console.error("Une erreur s'est produite lors de la récupération des informations détaillées du film.", error));
     }
 
-    // Function to close the modal
+    // Fonction qui ferme la fenetre modale
     function closeModal() {
         const modal = document.getElementById("movie-modal");
         modal.style.display = "none";
     }
 
-    // Add event listener to close the modal when the close button is clicked
     const closeBtn = document.getElementById("close-modal");
         closeBtn.addEventListener("click", closeModal);
 

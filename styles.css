@@ -7,21 +7,20 @@ body {
     margin: 0;
     overflow: auto;
     font-family: 'Netflix Sans', sans-serif;
-    color: white; /* Texte blanc */
+    color: white;
 }
 
 header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #445566; /* Vert très sombre */
-    width: 1000px; /* Largeur égale à la largeur des zones de films avec marges */
-    position: relative; /* Ajouter une position relative pour positionner les paragraphes */
+    background-color: #445566;
+    width: 1000px;
+    position: relative;
 }
 
-/* Style pour le h1 de l'en-tête */
 header h1 {
-    color: white; /* Texte blanc */
+    color: white;
     font-size: 28px;
     margin: 0;
     padding: 20px; 
@@ -31,11 +30,11 @@ header h1 {
 .header-paragraphs {
     display: flex;
     flex-direction: column;
-    align-items: flex-end; /* Aligne les paragraphes à droite */
-    position: absolute; /* Position absolue pour les paragraphes */
-    top: 50%; /* Position verticale au milieu */
-    right: 20px; /* Ajuste la position horizontale */
-    transform: translateY(-50%); /* Ajustement vertical */
+    align-items: flex-end;
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
 }
 
 /* Style pour les paragraphes de l'en-tête */
@@ -108,31 +107,10 @@ header p {
 h2 {
     text-align: center;
     margin-top: 10px;
+    font-size: 30px;
 }
 
-h2::before {
-    content: '';
-    display: block; 
-    position: relative;
-    left: 0;
-    width: 200px;
-    height: 2px;
-    background-color: white;
-    transform: translateY(-50%)
-    content: '\00a0';
-}
 
-h2::after {
-    content: '';
-    display: block; 
-    position: relative;
-    left: 800px;
-    width: 200px;
-    height: 2px;
-    background-color: white;
-    transform: translateY(-50%);
-    content: '\00a0';
-}
 
 .photo{
     width: 200px;
@@ -153,9 +131,9 @@ h2::after {
 }
 
 .title {
-    color: white; /* Couleur du texte en blanc */
-    text-align: center; /* Centrage du texte */
-    margin-top: 10px; /* Espacement par rapport à l'image */
+    color: white; 
+    text-align: center; 
+    margin-top: 10px;
     font-size: 20px;
 }
 
@@ -199,7 +177,7 @@ h2::after {
     transition: 0.3s ease;
 }
 
-/* Styles pour la fenêtre modale */
+/* Styles fenêtre modale */
 .modal {
     display: none;
     position: fixed;
@@ -252,6 +230,51 @@ h2::after {
     .buttonr, .buttonl {
         max-width: 23.33px; /* 35px / 1.5 = 23.33px */
     }
+
+    .title {
+    margin-top: 5px;
+    font-size: 10px;
+    }
+
+    h2 {
+    margin-top: 5px;
+    font-size: 15px;
+    }
+
+    #best-movie {
+    width: 500px;
+    }
+
+    #best-movie-details {
+        margin-top: 8px;
+    }
+
+    #best-movie-poster {
+        width: 200px;
+        height: 300px;
+    }
+
+    #best-movie-title {
+    font-size: 15px;
+    }
+
+    header {
+    width: 666.7px;
+    position: relative;
+    }
+
+    header h1 {
+    color: white;
+    font-size: 14px;
+    margin: 0;
+    padding: 10px; 
+    }
+
+    header p {
+    margin: -10px 0;
+    padding: 10px;
+    font-size: 10px;
+    }
 }
 
 @media (max-width: 700px) {
@@ -273,5 +296,49 @@ h2::after {
 
     .buttonr, .buttonl {
         max-width: 11.667px; /* 35px / 1.5 = 23.33px */
+    }
+
+    .title {
+    margin-top: 3px;
+    font-size: 7px;
+    }
+
+    h2 {
+    margin-top: 3px;
+    font-size: 10px;
+    }
+
+    #best-movie {
+    width: 250px;
+    }
+
+    #best-movie-details {
+        margin-top: 5px;
+    }
+
+    #best-movie-poster {
+        width: 100px;
+        height: 150px;
+    }
+
+    #best-movie-title {
+    font-size: 10px;
+    }
+
+     header {
+    width: 333.7px;
+    position: relative;
+    }
+
+    header h1 {
+    color: white;
+    font-size: 8px;
+    padding: 7px; 
+    }
+
+    header p {
+    margin: -10px 0;
+    padding: 10px;
+    font-size: 6px;
     }
 }
